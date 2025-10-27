@@ -17,6 +17,7 @@ build/
 out/
 .turbo/
 .vercel/
+*.tsbuildinfo
 
 # Environment files
 .env
