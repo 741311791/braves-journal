@@ -1,0 +1,32 @@
+{
+  "name": "@braves-journal/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Braves Journal API Server",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc && tsc-alias",
+    "start": "node dist/index.js",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "clean": "rm -rf dist .turbo node_modules"
+  },
+  "dependencies": {
+    "@braves-journal/shared": "workspace:*",
+    "@hono/node-server": "^1.8.2",
+    "hono": "^4.0.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@braves-journal/config": "workspace:*",
+    "@types/node": "^20.11.16",
+    "eslint": "^9.0.0",
+    "tsc-alias": "^1.8.8",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}

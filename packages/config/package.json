@@ -1,0 +1,36 @@
+{
+  "name": "@braves-journal/config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared configuration for linting, formatting, and testing",
+  "exports": {
+    "./eslint": "./eslint/index.mjs",
+    "./prettier": "./prettier/index.cjs",
+    "./vitest": "./vitest/index.ts",
+    "./tailwind/preset": "./tailwind/preset.ts",
+    "./commitlint": "./commitlint/index.cjs",
+    "./playwright": "./testing/playwright.config.ts",
+    "./tsconfig/base.json": "./tsconfig/base.json",
+    "./tsconfig/nextjs.json": "./tsconfig/nextjs.json",
+    "./tsconfig/node.json": "./tsconfig/node.json",
+    "./tsconfig/react.json": "./tsconfig/react.json"
+  },
+  "files": [
+    "eslint",
+    "prettier",
+    "vitest",
+    "tailwind",
+    "commitlint",
+    "testing",
+    "tsconfig"
+  ],
+  "devDependencies": {
+    "@playwright/test": "^1.41.2",
+    "@types/node": "^20.11.16",
+    "eslint": "^9.0.0",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}
