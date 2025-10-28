@@ -72,9 +72,7 @@ export function setupTracing(config: TracingConfig): void {
   sdk
     .start()
     .then(() => {
-      console.log(
-        `OpenTelemetry initialized: ${config.serviceName} -> ${config.endpoint}`,
-      );
+      console.log(`OpenTelemetry initialized: ${config.serviceName} -> ${config.endpoint}`);
     })
     .catch((error) => {
       console.error('Failed to start OpenTelemetry SDK', error);

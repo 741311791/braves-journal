@@ -45,9 +45,7 @@ describe('AuthGuard', () => {
 
     const context = createExecutionContext({ headers: {} });
 
-    await expect(guard.canActivate(context)).rejects.toBeInstanceOf(
-      UnauthorizedException,
-    );
+    await expect(guard.canActivate(context)).rejects.toBeInstanceOf(UnauthorizedException);
   });
 
   it('validates token and attaches user to request', async () => {
