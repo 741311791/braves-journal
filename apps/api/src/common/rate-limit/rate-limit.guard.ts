@@ -2,7 +2,8 @@ import {
   type CanActivate,
   type ExecutionContext,
   Injectable,
-  TooManyRequestsException,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
 
@@ -22,8 +23,9 @@ export class RateLimitGuard implements CanActivate {
     try {
       await request.rateLimit();
     } catch (error) {
-      throw new TooManyRequestsException(
-        error instanceof Error ? error.message : 'Too many requests'
+      throw new HttpException(
+        error instanceof Error ? error.message : 'Too many requests',
+        HttpStatus.TOO_MANY_REQUESTS
       );
     }
 

@@ -62,6 +62,7 @@ describe('AuthGuard', () => {
       headers: {
         authorization: 'Bearer valid.token',
       },
+      user: undefined,
     };
 
     const context = createExecutionContext(request);

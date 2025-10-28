@@ -46,6 +46,7 @@
   "devDependencies": {
     "@braves-journal/config": "workspace:*",
     "@types/node": "^20.11.16",
+    "@types/pg": "^8.15.6",
     "eslint": "^9.0.0",
     "tsc-alias": "^1.8.8",
     "tsx": "^4.7.1",

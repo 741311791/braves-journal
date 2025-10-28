@@ -3,9 +3,11 @@ import { Resource } from '@opentelemetry/resources';
 import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-http';
-import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
-import { InstrumentationBase } from '@opentelemetry/instrumentation';
+import type {
+  InstrumentationBase,
+  InstrumentationModuleDefinition,
+} from '@opentelemetry/instrumentation';
 
 interface TracingConfig {
   enabled: boolean;
@@ -13,22 +15,36 @@ interface TracingConfig {
   endpoint: string;
 }
 
-class PrismaInstrumentationPlaceholder extends InstrumentationBase {
-  constructor() {
-    super('prisma-placeholder', '0.1.0');
-  }
+class PrismaInstrumentationPlaceholder {
+  instrumentationName = 'prisma-placeholder';
+  instrumentationVersion = '0.1.0';
 
-  init() {
+  enable() {}
+  disable() {}
+  setConfig() {}
+  getConfig() {
+    return {};
+  }
+  setTracerProvider() {}
+  setMeterProvider() {}
+  getModuleDefinitions(): InstrumentationModuleDefinition[] {
     return [];
   }
 }
 
-class QueueInstrumentationPlaceholder extends InstrumentationBase {
-  constructor() {
-    super('queue-placeholder', '0.1.0');
-  }
+class QueueInstrumentationPlaceholder {
+  instrumentationName = 'queue-placeholder';
+  instrumentationVersion = '0.1.0';
 
-  init() {
+  enable() {}
+  disable() {}
+  setConfig() {}
+  getConfig() {
+    return {};
+  }
+  setTracerProvider() {}
+  setMeterProvider() {}
+  getModuleDefinitions(): InstrumentationModuleDefinition[] {
     return [];
   }
 }
@@ -56,27 +72,15 @@ export function setupTracing(config: TracingConfig): void {
   sdk = new NodeSDK({
     resource,
     traceExporter,
-    metricReader: new PeriodicExportingMetricReader({
-      exporter: metricExporter,
-      exportIntervalMillis: 60000,
-    }),
     instrumentations: [
-      new HttpInstrumentation({
-        ignoreIncomingPaths: ['/health/live', '/health/ready'],
-      }),
-      new PrismaInstrumentationPlaceholder(),
-      new QueueInstrumentationPlaceholder(),
+      new HttpInstrumentation(),
+      new PrismaInstrumentationPlaceholder() as any,
+      new QueueInstrumentationPlaceholder() as any,
     ],
   });
 
-  sdk
-    .start()
-    .then(() => {
-      console.log(`OpenTelemetry initialized: ${config.serviceName} -> ${config.endpoint}`);
-    })
-    .catch((error) => {
-      console.error('Failed to start OpenTelemetry SDK', error);
-    });
+  sdk.start();
+  console.log(`OpenTelemetry initialized: ${config.serviceName} -> ${config.endpoint}`);
 }
 
 export async function shutdownTracing(): Promise<void> {

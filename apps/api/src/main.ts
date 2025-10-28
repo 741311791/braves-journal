@@ -35,19 +35,22 @@ async function bootstrap(): Promise<void> {
 
   const fastifyInstance = app.getHttpAdapter().getInstance();
 
-  await fastifyInstance.register(cors, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await fastifyInstance.register(cors as any, {
     origin: corsConfig.origin,
     credentials: true,
   });
 
-  await fastifyInstance.register(rateLimit, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await fastifyInstance.register(rateLimit as any, {
     global: true,
     max: rateLimitConfig.max,
     timeWindow: rateLimitConfig.timeWindow,
   });
 
-  await fastifyInstance.register(basicAuth, {
-    validate: async (username, password) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await fastifyInstance.register(basicAuth as any, {
+    validate: async (username: string, password: string) => {
       if (username !== swaggerConfig.user || password !== swaggerConfig.password) {
         throw new Error('Invalid documentation credentials');
       }
