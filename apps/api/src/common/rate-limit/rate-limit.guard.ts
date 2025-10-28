@@ -1,0 +1,34 @@
+import {
+  type CanActivate,
+  type ExecutionContext,
+  Injectable,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import type { FastifyRequest } from 'fastify';
+
+type RateLimitRequest = FastifyRequest & {
+  rateLimit?: () => Promise<void>;
+};
+
+@Injectable()
+export class RateLimitGuard implements CanActivate {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest<RateLimitRequest>();
+
+    if (typeof request.rateLimit !== 'function') {
+      return true;
+    }
+
+    try {
+      await request.rateLimit();
+    } catch (error) {
+      throw new HttpException(
+        error instanceof Error ? error.message : 'Too many requests',
+        HttpStatus.TOO_MANY_REQUESTS
+      );
+    }
+
+    return true;
+  }
+}
