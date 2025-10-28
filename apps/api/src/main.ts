@@ -5,10 +5,7 @@ import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
+import { FastifyAdapter, type NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger } from 'nestjs-pino';
 
@@ -60,6 +57,7 @@ async function bootstrap(): Promise<void> {
 
   fastifyInstance.addHook('onRequest', async (request, reply) => {
     if (request.url?.startsWith('/docs')) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await (fastifyInstance as any).basicAuth(request, reply);
     }
   });

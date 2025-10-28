@@ -1,5 +1,10 @@
-import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
+import {
+  Injectable,
+  type CanActivate,
+  type ExecutionContext,
+  ForbiddenException,
+} from '@nestjs/common';
+import type { Reflector } from '@nestjs/core';
 import type { FastifyRequest } from 'fastify';
 
 import { ROLES_KEY } from '../metadata/roles.metadata';
@@ -29,9 +34,7 @@ export class RolesGuard implements CanActivate {
     const hasRole = requiredRoles.includes(user.role);
 
     if (!hasRole) {
-      throw new ForbiddenException(
-        `Access denied. Required roles: ${requiredRoles.join(', ')}`,
-      );
+      throw new ForbiddenException(`Access denied. Required roles: ${requiredRoles.join(', ')}`);
     }
 
     return true;

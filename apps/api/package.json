@@ -44,6 +44,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@braves-journal/config": "workspace:*",
     "@types/node": "^20.11.16",
     "eslint": "^9.0.0",
     "tsc-alias": "^1.8.8",

@@ -1,16 +1,21 @@
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
+import {
+  Injectable,
+  type CanActivate,
+  type ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
+import type { Reflector } from '@nestjs/core';
 import type { FastifyRequest } from 'fastify';
 
 import { IS_PUBLIC_KEY } from '../metadata/public.metadata';
 import type { AuthenticatedRequest, AuthUser } from '../../auth/supabase.strategy';
-import { SupabaseStrategy } from '../../auth/supabase.strategy';
+import type { SupabaseStrategy } from '../../auth/supabase.strategy';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly supabaseStrategy: SupabaseStrategy,
+    private readonly supabaseStrategy: SupabaseStrategy
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -45,7 +50,7 @@ export class AuthGuard implements CanActivate {
   private async validateToken(token: string): Promise<AuthUser> {
     try {
       return await this.supabaseStrategy.validate(token);
-    } catch (error) {
+    } catch {
       throw new UnauthorizedException('Invalid or expired token');
     }
   }

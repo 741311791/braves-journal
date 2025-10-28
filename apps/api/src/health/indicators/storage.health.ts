@@ -1,7 +1,7 @@
 import { S3Client, HeadBucketCommand } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { HealthIndicator, HealthIndicatorResult } from '@nestjs/terminus';
+import type { ConfigService } from '@nestjs/config';
+import { HealthIndicator, type HealthIndicatorResult } from '@nestjs/terminus';
 
 import type { Configuration } from '../../config/configuration';
 

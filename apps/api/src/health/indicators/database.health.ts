@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import {
-  HealthIndicator,
-  HealthIndicatorResult,
-} from '@nestjs/terminus';
+import type { ConfigService } from '@nestjs/config';
+import { HealthIndicator, type HealthIndicatorResult } from '@nestjs/terminus';
 import { Pool } from 'pg';
 
 import type { Configuration } from '../../config/configuration';

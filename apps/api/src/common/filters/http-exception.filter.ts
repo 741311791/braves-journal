@@ -1,7 +1,7 @@
 import {
-  ArgumentsHost,
+  type ArgumentsHost,
   Catch,
-  ExceptionFilter,
+  type ExceptionFilter,
   HttpException,
   HttpStatus,
   Logger,
@@ -59,7 +59,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     this.logger.error(
       `${request.method} ${request.url} - ${status} - ${message}`,
-      exception instanceof Error ? exception.stack : undefined,
+      exception instanceof Error ? exception.stack : undefined
     );
 
     void response

@@ -1,6 +1,6 @@
 import {
-  CanActivate,
-  ExecutionContext,
+  type CanActivate,
+  type ExecutionContext,
   Injectable,
   TooManyRequestsException,
 } from '@nestjs/common';
@@ -23,7 +23,7 @@ export class RateLimitGuard implements CanActivate {
       await request.rateLimit();
     } catch (error) {
       throw new TooManyRequestsException(
-        error instanceof Error ? error.message : 'Too many requests',
+        error instanceof Error ? error.message : 'Too many requests'
       );
     }
 

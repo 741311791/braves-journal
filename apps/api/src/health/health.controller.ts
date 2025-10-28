@@ -1,20 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
-import {
-  HealthCheck,
-  HealthCheckService,
-  HealthCheckResult,
-} from '@nestjs/terminus';
+import { HealthCheck, type HealthCheckService, type HealthCheckResult } from '@nestjs/terminus';
 
 import { Public } from '../common/metadata/public.metadata';
-import { DatabaseHealthIndicator } from './indicators/database.health';
-import { StorageHealthIndicator } from './indicators/storage.health';
+import type { DatabaseHealthIndicator } from './indicators/database.health';
+import type { StorageHealthIndicator } from './indicators/storage.health';
 
 @Controller('health')
 export class HealthController {
   constructor(
     private readonly health: HealthCheckService,
     private readonly db: DatabaseHealthIndicator,
-    private readonly storage: StorageHealthIndicator,
+    private readonly storage: StorageHealthIndicator
   ) {}
 
   @Get('live')
