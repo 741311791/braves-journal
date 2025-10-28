@@ -2,12 +2,8 @@ import { NodeSDK } from '@opentelemetry/sdk-node';
 import { Resource } from '@opentelemetry/resources';
 import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-http';
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
-import type {
-  InstrumentationBase,
-  InstrumentationModuleDefinition,
-} from '@opentelemetry/instrumentation';
+import type { InstrumentationModuleDefinition } from '@opentelemetry/instrumentation';
 
 interface TracingConfig {
   enabled: boolean;
@@ -65,16 +61,14 @@ export function setupTracing(config: TracingConfig): void {
     url: `${config.endpoint}/v1/traces`,
   });
 
-  const metricExporter = new OTLPMetricExporter({
-    url: `${config.endpoint}/v1/metrics`,
-  });
-
   sdk = new NodeSDK({
     resource,
     traceExporter,
     instrumentations: [
       new HttpInstrumentation(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new PrismaInstrumentationPlaceholder() as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       new QueueInstrumentationPlaceholder() as any,
     ],
   });
